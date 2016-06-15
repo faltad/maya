@@ -1,25 +1,15 @@
 from sqlalchemy import Table, Column, Integer, String, MetaData
-from sqlalchemy import select
+from sqlalchemy.orm import relationship
 
-class Client:
-    metadata = MetaData()
+from request import Request
 
-    @classmethod
-    def setup(cls, engine, conn):
-        cls.engine = engine
-        cls.conn = conn
-        cls.table =  Table("client", cls.metadata,
-                           Column("id", Integer, primary_key=True),
-                           Column("ip", String(45)),
-                           )
-        cls.metadata.create_all(engine)
+from . import Base
 
-    @classmethod
-    def find_one(cls, ip):
-        s = select([cls.table.c.id]).where(cls.table.c.ip == ip)
-        result = cls.conn.execute(s)
-        row = result.fetchone()
-        result.close()
-        if row:
-            return { "id": row[0]}
-        return None
+
+class Client(Base):
+    __tablename__ = "clients"
+
+    id = Column(Integer, primary_key=True)
+    ip = Column(String(45))
+
+    requests = relationship("Request", order_by=Request.id, back_populates="client")

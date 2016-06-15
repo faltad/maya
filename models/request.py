@@ -1,20 +1,16 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, Text, DateTime
-from sqlalchemy import select
+from sqlalchemy import Column, Integer, String, MetaData, Text, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 
+from . import Base
 
-class Request:
-    metadata = MetaData()
+class Request(Base):
+    __tablename__ = "requests"
 
-    @classmethod
-    def setup(cls, engine, conn):
-        cls.engine = engine
-        cls.conn = conn
-        cls.table =  Table("request", cls.metadata,
-                           Column("id", Integer, primary_key=True),
-                           Column("route", Text),
-                           Column("time", DateTime),
-                           Column("post_data", Text),
-                           Column("headers", Text),
-                           Column("client_id", Integer)
-                           )
-        cls.metadata.create_all(engine)
+    id = Column(Integer, primary_key=True)
+    route = Column(Text)
+    time = Column(DateTime)
+    post_data = Column(Text)
+    headers = Column(Text)
+    client_id = Column(Integer, ForeignKey('clients.id'))
+
+    client = relationship("Client", back_populates="requests")
