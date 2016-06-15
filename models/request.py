@@ -11,6 +11,7 @@ class Request(Base):
     time = Column(DateTime)
     post_data = Column(Text)
     headers = Column(Text)
+    method = Column(String(10))
     client_id = Column(Integer, ForeignKey('clients.id'))
 
     client = relationship("Client", back_populates="requests")
