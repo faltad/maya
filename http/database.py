@@ -8,7 +8,7 @@ from models import Base
 
 # setup the sql connection/engine
 sql_url = Config.get_sqlalchemy_url()
-engine = sqlalchemy.create_engine(sql_url, echo=True)
+engine = sqlalchemy.create_engine(sql_url)
 Base.metadata.create_all(engine)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,

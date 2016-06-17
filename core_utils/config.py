@@ -4,6 +4,7 @@ import sys
 from collections import OrderedDict
 
 DATABASE_SECTION = "database"
+GITHUB_SECTION = "github"
 
 
 class Config:
@@ -37,5 +38,12 @@ class Config:
                 else:
                     pass
         return url
+
+    @classmethod
+    def get_deploy_key(cls):
+        try:
+            return cls.config.get(GITHUB_SECTION, 'deploy_key')
+        except ConfigParser.NoSectionError:
+            raise Exception('Github section missing from the config file')
 
 Config.init_config("config/current.cfg")
