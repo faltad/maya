@@ -4,6 +4,7 @@ import sys
 from collections import OrderedDict
 
 DATABASE_SECTION = "database"
+GITHUB_SECTION = "github"
 
 
 class Config:
@@ -37,5 +38,9 @@ class Config:
                 else:
                     pass
         return url
+
+    @classmethod
+    def get_deploy_key(cls):
+        return cls.config.get(GITHUB_SECTION, 'deploy_key')
 
 Config.init_config("config/current.cfg")
