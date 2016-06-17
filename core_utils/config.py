@@ -43,7 +43,7 @@ class Config:
     def get_deploy_key(cls):
         try:
             return cls.config.get(GITHUB_SECTION, 'deploy_key')
-        except ConfigParser.NoSectionError as error:
+        except ConfigParser.NoSectionError:
             raise Exception('Github section missing from the config file')
 
 Config.init_config("config/current.cfg")
