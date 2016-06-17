@@ -19,7 +19,7 @@ app = Flask(__name__)
 def shutdown_session(exception=None):
     db_session.remove()
 
-@app.route('/deploy')
+@app.route('/deploy', methods=['POST'])
 def deploy():
     base_dir = os.path.dirname(os.path.dirname(__file__))
     signature = request.headers.get('X-Hub-Signature')
