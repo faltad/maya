@@ -90,4 +90,5 @@ ENV/
 
 
 config/current.cfg
+config/prod.cfg
 .idea
