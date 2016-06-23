@@ -1,5 +1,6 @@
 import ConfigParser 
 import sys
+import os
 
 from collections import OrderedDict
 
@@ -46,4 +47,4 @@ class Config:
         except ConfigParser.NoSectionError:
             raise Exception('Github section missing from the config file')
 
-Config.init_config("config/current.cfg")
+Config.init_config(os.path.dirname(__file__) + "/../config/current.cfg")
