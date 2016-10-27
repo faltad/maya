@@ -12,7 +12,7 @@ RUN apt-get install -y  python \
                         apache2-utils \
                         libapache2-mod-wsgi \ 
                         libmysqlclient-dev \
-                        vim \
+                        emacs \
                         mysql-client
 
 ADD . /var/www/html/maya
